@@ -54,15 +54,21 @@ class PraisalInput extends React.Component {
         if (str) {
           let array = str.split("\n");
 
-          array.forEach(async (item, i) => {
-              let name = item.trim().substring(item.trim().search(/\s[0-9]/),0);
-              let num = item.replace(",", "").match(/\s[0-9]+/g)[0].trim();
-              let result = {
-                  "name": name,
-                  "num": num
-              }
-              this.setItemData(result)
-          })
+          if(array.length >= 1) {
+            array.forEach(async (item, i) => {
+                let name = item.trim().substring(item.trim().search(/\s[0-9]/),0);
+                
+                if (item.indexOf(',') >= 0) {
+                  let num = item.replace(",", "").match(/\s[0-9]+/g)[0].trim();
+                  let result = {
+                      "name": name,
+                      "num": num
+                  }
+                  this.setItemData(result)
+                }
+
+            })
+          }
         }
     }
 
